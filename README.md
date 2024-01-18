@@ -1,229 +1,305 @@
-# corelab-challenge
+# To-Do List for CoreLab Challenge API Documentation
 
-<!DOCTYPE html>
-<html lang="en">
+API for the challenge proposed by Corelab as a requirement for a Junior Developer position
 
-<head>
-  <meta charset="UTF-8">
-  <title>To-Do List for CoreLab Challenge API Documentation</title>
-</head>
+## Author
 
-<body>
+- [@msgustavo](https://github.com/ms-gustavo)
 
-  <h1>To-Do List API Documentation</h1>
+## Stack used
 
-  <h2>Base URL</h2>
-  <code>http://localhost:3012/api</code>
+**DataBase:** MongoDB
 
-   <h2>Setup and Local Run</h2>
-   1. Clone the repository
-   <code>
-   git@github.com:ms-gustavo/corelab-challenge.git
-   </code>
-   2. Navigate to the project directory
-   <code>
-   cd corelab-challenge
-   </code>
-   3. Create an <code>.env</code> file:
-   - Copy the contents of <code>.envexample</code> into a new file named <code>.env</code>
-   - Update the values in the <code>.env</code> file as needed.
-   4. Install dependencies
-   <code>npm install</code>
-   5. Start the server
-   <code>npm start</code>
-   6. This To-Do List API should be running locally at <code>http://localhost:3012/api</code>
+**ODM:** Mongoose
 
-  <h2>Endpoints</h2>
+**Back-end:** Node, Express
 
-  <h3>1. Create a Todo</h3>
-  <h4>Endpoint</h4>
-  <code>POST /todos</code>
-  <h4>Request Body</h4>
-  <code>
-    {
-      "title": "Task Title",
-      "description": "Task Description",
-      "isFavorite": false,
-      "color": "blue",
-    }
-  </code>
-  <h4>Response</h4>
-  <code>
-    {
-      "_id": "unique_todo_id",
-      "title": "Task Title",
-      "description": "Task Description",
-      "isFavorite": false,
-      "color": "blue",
-    }
-  </code>
+## Base URL
 
-  <h3>2. Get All Todos</h3>
-  <h4>Endpoint</h4>
-  <code>GET /todos</code>
-  <h4>Response</h4>
-  <code>
-    [
-      {
-        "_id": "unique_todo_id_1",
-        "title": "Task 1",
-        "description": "Description 1",
-        "isFavorite": false,
-        "color": "red",
-      },
-      {
-        "_id": "unique_todo_id_2",
-        "title": "Task 2",
-        "description": "Description 2",
-        "isFavorite": true,
-        "color": "green",
-      }
-      // ... other todos
-    ]
-  </code>
+http://localhost:3012/api
 
-  <h3>3. Get a Specific Todo</h3>
-  <h4>Endpoint</h4>
-  <code>GET /todos/:id</code>
-  <h4>Response</h4>
- <code>
-    {
-  "_id": "unique_todo_id",
+## Setup and Local Run
+
+1. Clone the repository
+
+```bash
+git@github.com:ms-gustavo/corelab-challenge.git
+```
+
+2. Navigate to the project directory
+
+```bash
+cd corelab-challenge
+```
+
+3. Create an `.env` file:
+
+- Copy the content of `.envexample` into a new file named `.env`
+- Update the values in the `.env` file as needed.
+
+4. Install dependencias
+
+```bash
+npm install
+```
+
+5. Start the server
+
+```bash
+npm start
+```
+
+6. This To-Do List API should be running locally at `http://localhost:3012/api`
+
+## Running the tests
+
+To run the tests, run the following command
+
+```bash
+  npm test
+```
+
+NOTE: The server cannot be already running on port 3012 or it will conflict
+
+## API Documentation
+
+### 1. Create a TODO
+
+```http
+  POST /todos
+```
+
+#### Request Body Example:
+
+```json
+{
   "title": "Task Title",
   "description": "Task Description",
   "isFavorite": false,
-  "color": "blue",
+  "color": "blue"
 }
-  </code>
+```
 
-   <h3>4. Update a Todo</h3>
-  <h4>Endpoint</h4>
-  <code>PUT /todos/:id</code>
-  <h4>Request Body:</h4>
- <code>
-   {
-  "title": "Updated Task Title",
-  "description": "Updated Task Description",
-  "isFavorite": true,
-  "color": "yellow",
-}
-  </code>
-   <h4>Response</h4>
-<code>
-{
-  "_id": "unique_todo_id",
-  "title": "Updated Task Title",
-  "description": "Updated Task Description",
-  "isFavorite": true,
-  "color": "yellow",
-}
-</code>
+##### Response:
 
-  <h3>5. Delete a Todo</h3>
-  <h4>Endpoint</h4>
-  <code>DELETE /todos/:id</code>
-  <h4>Response: <strong>No Content(204)</strong></h4>
-
-  <h3>6. Mark a Todo as Favorite</h3>
-  <h4>Endpoint</h4>
-  <code>PUT /todos/:id/favorite</code>
-  <h4>Response</h4>
- <code>
-   {
-  "_id": "unique_todo_id",
-  "title": "Task Title",
-  "description": "Task Description",
-  "isFavorite": true,
-  "color": "blue",
-}
-  </code>
-
-  <h3>7. Set Color for a Todo</h3>
-  <h4>Endpoint</h4>
-  <code>PUT /todos/:id/color</code>
-  <h4>Request Body</h4>
- <code>
-    {
-  "color": "purple"
-}
-  </code>
-   <h4>Response</h4>
-<code>
+```json
 {
   "_id": "unique_todo_id",
   "title": "Task Title",
   "description": "Task Description",
   "isFavorite": false,
-  "color": "purple",
+  "color": "blue"
 }
-</code>
-  <h3>8. Get All Favorite Todos
-</h3>
-  <h4>Endpoint</h4>
-  <code>GET /todos/favorites</code>
-  <h4>Response</h4>
- <code>
-[
-  {
-    "_id": "unique_todo_id_2",
-    "title": "Task 2",
-    "description": "Description 2",
-    "isFavorite": true,
-    "color": "green",
-  }
-  // ... other favorite todos
-]
-  </code>
+```
 
-  <h3>9. Get All Todos with a Specific Color</h3>
-  <h4>Endpoint</h4>
-  <code>GET /todos/color/:color</code>
-  <h4>Response</h4>
- <code>
+### 2. Get All Todos
+
+```http
+GET /todos
+```
+
+#### Response
+
+```json
 [
   {
     "_id": "unique_todo_id_1",
     "title": "Task 1",
     "description": "Description 1",
     "isFavorite": false,
-    "color": "red",
+    "color": "red"
+  },
+  {
+    "_id": "unique_todo_id_2",
+    "title": "Task 2",
+    "description": "Description 2",
+    "isFavorite": true,
+    "color": "green"
+  }
+  // ... other todos
+]
+```
+
+### 3. Get a Specific Todo
+
+```http
+GET /todos/:id
+```
+
+#### Response
+
+```json
+{
+  "_id": "unique_todo_id",
+  "title": "Task Title",
+  "description": "Task Description",
+  "isFavorite": false,
+  "color": "blue"
+}
+```
+
+### 4. Update a Todo
+
+```http
+PUT /todos/:id
+```
+
+#### Request Body:
+
+```json
+{
+  "title": "Updated Task Title",
+  "description": "Updated Task Description",
+  "isFavorite": true,
+  "color": "yellow"
+}
+```
+
+#### Response
+
+```json
+{
+  "_id": "unique_todo_id",
+  "title": "Updated Task Title",
+  "description": "Updated Task Description",
+  "isFavorite": true,
+  "color": "yellow"
+}
+```
+
+### 5. Delete a Todo
+
+```http
+DELETE /todos/:id
+```
+
+#### Response:
+
+```
+No Content (204)
+```
+
+### 6. Mark a Todo as Favorite
+
+```http
+PUT /todos/:id/favorite
+```
+
+#### Response
+
+```json
+{
+  "_id": "unique_todo_id",
+  "title": "Task Title",
+  "description": "Task Description",
+  "isFavorite": true,
+  "color": "blue"
+}
+```
+
+### 7. Set Color for a Todo
+
+```http
+PUT /todos/:id/color
+```
+
+#### Request Body
+
+```json
+{
+  "color": "purple"
+}
+```
+
+#### Response
+
+```json
+{
+  "_id": "unique_todo_id",
+  "title": "Task Title",
+  "description": "Task Description",
+  "isFavorite": false,
+  "color": "purple"
+}
+```
+
+### 8. Get All Favorite Todos
+
+```http
+GET /todos/favorites
+```
+
+#### Response
+
+```json
+[
+  {
+    "_id": "unique_todo_id_2",
+    "title": "Task 2",
+    "description": "Description 2",
+    "isFavorite": true,
+    "color": "green"
+  }
+  // ... other favorite todos
+]
+```
+
+### 9. Get All Todos with a Specific Color
+
+```http
+GET /todos/color/:color
+```
+
+#### Response
+
+```json
+[
+  {
+    "_id": "unique_todo_id_1",
+    "title": "Task 1",
+    "description": "Description 1",
+    "isFavorite": false,
+    "color": "red"
   },
   {
     "_id": "unique_todo_id_3",
     "title": "Task 3",
     "description": "Description 3",
     "isFavorite": false,
-    "color": "red",
+    "color": "red"
   }
   // ... other todos with the specified color
 ]
-  </code>
-  <h2>Error Handling</h2>
+```
 
-  <h3>404 Not Found:</h3>
-  <p>When a requested resource is not found.</p>
-  <code>
-    {
-      "error": "Todo not found"
-    }
-  </code>
+###
 
-  <h3>500 Internal Server Error:</h3>
-  <p>For other server-related errors.</p>
-  <code>
-    {
-      "error": "Internal Server Error"
-    }
-  </code>
+# Error Handling
 
-  <h2>Additional Notes</h2>
+#### 404 Not Found:
 
-  <ul>
-    <li>Colors can be specified as strings (e.g., "red", "green").</li>
-    <li>To filter by favorites, use the /todos/favorites endpoint.</li>
-    <li>To filter by color, use the /todos/color/:color endpoint.</li>
-  </ul>
+When a requested resource is not found.
 
-</body>
+```json
+{
+  "error": "Todo not found"
+}
+```
 
-</html>
+#### 500 Internal Server Error:
+
+For other server-related errors.
+
+```json
+{
+  "error": "Internal Server Error"
+}
+```
+
+###
+
+## Additional Notes
+
+- Colors can be specified as strings (e.g., "red", "green").
+- To filter by favorites, use the `/todos/favorites` endpoint.
+- To filter by color, use the `/todos/color/:color` endpoint.
