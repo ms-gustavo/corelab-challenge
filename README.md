@@ -27,8 +27,11 @@ Connect to your MongoDB Atlas cluster using the following connection string:
 Replace the following placeholders:
 
 `<username>`: Your MongoDB Atlas username.
+
 `<password>`: Your MongoDB Atlas password.
+
 `<cluster-address>`: The address of your MongoDB Atlas cluster.
+
 `<database-name>`: The name of the MongoDB database you want to connect to.
 
 #### Example
