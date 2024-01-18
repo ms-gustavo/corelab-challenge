@@ -83,9 +83,13 @@ exports.deleteTodo = async (req, res) => {
 
 exports.markAsFavorite = async (req, res) => {
   try {
-    const todo = await Todo.findByIdAndUpdate(req.params.id, {
-      isFavorite: true,
-    });
+    const todo = await Todo.findByIdAndUpdate(
+      req.params.id,
+      {
+        isFavorite: true,
+      },
+      { new: true }
+    );
     if (!todo) {
       return handleNotFoundError(res);
     }
