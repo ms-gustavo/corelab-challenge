@@ -1,12 +1,19 @@
 const mongoose = require("mongoose");
+const { MongoMemoryServer } = require("mongodb-memory-server");
+
+let mongoServer;
 
 beforeAll(async () => {
-  await mongoose.connect("mongodb://localhost:27017/todo-api-test", {
+  mongoServer = new MongoMemoryServer();
+  const mongoUri = await mongoServer.getUri();
+
+  await mongoose.connect(mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
 });
 
 afterAll(async () => {
-  await mongoose.connection.close();
+  await mongoose.disconnect();
+  await mongoServer.stop();
 });

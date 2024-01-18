@@ -7,6 +7,7 @@ require("dotenv").config();
 
 app.use(bodyParser.json());
 app.use("/api", routes);
+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
