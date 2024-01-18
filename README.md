@@ -22,7 +22,7 @@ http://localhost:3012/api
 
 Connect to your MongoDB Atlas cluster using the following connection string:
 
-``mongodb+srv://<username>:<password>@<cluster-address>/<database-name>`
+`mongodb+srv://<username>:<password>@<cluster-address>/<database-name>`
 
 Replace the following placeholders:
 
