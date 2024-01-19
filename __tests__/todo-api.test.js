@@ -14,7 +14,7 @@ describe("Todo API Tests", () => {
   it("should get all todos and handle no todos case", async () => {
     const res = await request.get("/api/todos");
 
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(404);
     expect(res.body).toBeInstanceOf(Object);
     if (res.body.length === 0) {
       expect(res.body.message).toBe("No todos found yet");
@@ -132,10 +132,10 @@ describe("Todo API Tests", () => {
   it("should get all favorites todos and handle no todos case", async () => {
     const res = await request.get("/api/todos/favorites");
 
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(404);
     expect(res.body).toBeInstanceOf(Object);
     if (res.body.length === 0) {
-      expect(res.body.message).toBe("No todos found yet");
+      expect(res.body.message).toBe("No favorites todos found yet");
     }
   });
 

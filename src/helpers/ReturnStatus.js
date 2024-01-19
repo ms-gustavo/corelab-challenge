@@ -14,8 +14,12 @@ function handleInvalidColorError(res) {
   return res.status(400).json({ error: "Invalid color" });
 }
 
-function sendSuccessIfDontFindTodos(res) {
-  return res.status(200).json({ message: "No todos found yet" });
+function handleNotFoundTodosYet(res) {
+  return res.status(404).json({ message: "No todos found yet" });
+}
+
+function handleNotFoundFavoritesTodosYet(res) {
+  return res.status(404).json({ message: "No favorites todos found yet" });
 }
 
 function sendSuccessWithData(res, data) {
@@ -45,6 +49,7 @@ module.exports = {
   sendCreatedWithData,
   handleInvalidColor,
   handleValidationError,
-  sendSuccessIfDontFindTodos,
+  handleNotFoundTodosYet,
   handleInvalidColorError,
+  handleNotFoundFavoritesTodosYet,
 };

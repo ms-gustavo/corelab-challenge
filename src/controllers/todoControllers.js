@@ -7,8 +7,9 @@ const {
   sendCreatedWithData,
   handleInvalidColor,
   handleValidationError,
-  sendSuccessIfDontFindTodos,
+  handleNotFoundTodosYet,
   handleInvalidColorError,
+  handleNotFoundFavoritesTodosYet,
 } = require("../helpers/ReturnStatus");
 const validColors = require("../helpers/ValidColors");
 const { isValidColor } = require("../helpers/isValidColors");
@@ -36,7 +37,7 @@ exports.getAllTodos = async (req, res) => {
   try {
     const todos = await Todo.find();
     if (todos.length === 0) {
-      return sendSuccessIfDontFindTodos(res);
+      return handleNotFoundTodosYet(res);
     }
 
     return sendSuccessWithData(res, todos);
@@ -49,7 +50,7 @@ exports.getAllFavoriteTodos = async (req, res) => {
   try {
     const favoriteTodos = await Todo.find({ isFavorite: true });
     if (favoriteTodos.length === 0) {
-      return sendSuccessIfDontFindTodos(res);
+      return handleNotFoundFavoritesTodosYet(res);
     }
     return sendSuccessWithData(res, favoriteTodos);
   } catch (error) {
