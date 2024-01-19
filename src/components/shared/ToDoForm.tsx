@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useFormik } from "formik";
 import StarIcon from "../StarIcon";
 import { ToDoFormProps } from "../../types/todo";
 import "./ToDoForm.scss";
 import ColorPicker from "../ColorPicker/ColorPicker";
-import { createTodo, updateTodo, markTodoAsFavorite } from "../../api/todoApi";
+import {
+  createTodo,
+  updateTodo,
+  markTodoAsFavorite,
+  deleteTodo,
+} from "../../api/todoApi";
 import changeBG from "../../assets/changeBG.svg";
 import changeText from "../../assets/changeText.svg";
+import removeButton from "../../assets/removeButton.svg";
 
 const ToDoForm: React.FC<ToDoFormProps> = ({
   mode,
@@ -18,6 +24,40 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
   const [showBackgroundColorPicker, setShowBackgroundColorPicker] =
     useState(false);
 
+  const textColorPickerRef = useRef<HTMLDivElement>(null);
+  const backgroundColorPickerRef = useRef<HTMLDivElement>(null);
+  const textColorTriggerRef = useRef<HTMLDivElement>(null);
+  const backgroundColorTriggerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as Node;
+
+      if (
+        textColorPickerRef.current &&
+        !textColorPickerRef.current.contains(target) &&
+        textColorTriggerRef.current &&
+        !textColorTriggerRef.current.contains(target)
+      ) {
+        setShowTextColorPicker(false);
+      }
+
+      if (
+        backgroundColorPickerRef.current &&
+        !backgroundColorPickerRef.current.contains(target) &&
+        backgroundColorTriggerRef.current &&
+        !backgroundColorTriggerRef.current.contains(target)
+      ) {
+        setShowBackgroundColorPicker(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const formik = useFormik({
     initialValues: initialValues || {
       title: "",
@@ -26,7 +66,6 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
     },
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
-      console.log("values", values);
       try {
         if (mode === "create") {
           await createTodo(values);
@@ -161,18 +200,36 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
         {mode === "update" && (
           <>
             <div className="color-picker-container">
-              <div onClick={toggleTextColorPicker}>
-                <img src={changeText} alt="Text Color Picker" />
-                {showTextColorPicker && (
-                  <ColorPicker onSelect={handleTextColorSelect} />
-                )}
+              <div className="picker-group">
+                <div ref={textColorTriggerRef} onClick={toggleTextColorPicker}>
+                  <img src={changeText} alt="Text Color Picker" />
+                  {showTextColorPicker && (
+                    <div ref={textColorPickerRef}>
+                      <ColorPicker onSelect={handleTextColorSelect} />
+                    </div>
+                  )}
+                </div>
+
+                <div
+                  ref={backgroundColorTriggerRef}
+                  onClick={toggleBackgroundColorPicker}
+                >
+                  <img src={changeBG} alt="Background Color Picker" />
+                  {showBackgroundColorPicker && (
+                    <div ref={backgroundColorPickerRef}>
+                      <ColorPicker onSelect={handleBackgroundColorSelect} />
+                    </div>
+                  )}
+                </div>
               </div>
 
-              <div onClick={toggleBackgroundColorPicker}>
-                <img src={changeBG} alt="Background Color Picker" />
-                {showBackgroundColorPicker && (
-                  <ColorPicker onSelect={handleBackgroundColorSelect} />
-                )}
+              {/* Div for Remove Button */}
+              <div className="remove-button">
+                <img
+                  src={removeButton}
+                  onClick={() => deleteTodo && todoId && deleteTodo(todoId)}
+                  className="delete-icon"
+                />
               </div>
             </div>
           </>

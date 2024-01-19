@@ -76,12 +76,22 @@
     margin-top: 0.5em;
     padding: 5px;
     display: flex;
-    align-items: start;
-    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .color-picker-container > div {
+  .picker-group {
+    display: flex;
+    gap: 15px;
     position: relative;
+  }
+
+  .color-picker-container > .picker-group > div {
+    position: relative;
+  }
+
+  .delete-icon {
+    cursor: pointer;
   }
 
   .color-picker-popup {

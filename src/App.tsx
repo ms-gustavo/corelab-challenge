@@ -14,6 +14,7 @@ const NoteApp: React.FC = () => {
   const refreshTodos = async () => {
     getAllTodos()
       .then((response) => {
+        console.log("response", response);
         setTodos(response.data);
         setFavoriteTodos(response.data.filter((todo) => todo.isFavorite));
       })
@@ -31,7 +32,7 @@ const NoteApp: React.FC = () => {
   useEffect(() => {
     console.log(todos);
     console.log(favoriteTodos);
-  }, [todos]);
+  }, [todos, favoriteTodos]);
 
   //TODO: Function to handle search term changes
   const handleSearchTermChange = (
