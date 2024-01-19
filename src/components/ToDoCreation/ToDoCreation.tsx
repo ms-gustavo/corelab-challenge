@@ -18,7 +18,6 @@ const ToDoCreation: React.FC<ToDoCreationProps> = ({ onTodoCreated }) => {
     },
     validationSchema,
     onSubmit: async (values, formikHelpers: FormikHelpers<TodoCreateData>) => {
-      console.log("values", values);
       try {
         const response = await createTodo(values);
         console.log("ToDo Created:", response.data);
