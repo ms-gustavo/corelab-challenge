@@ -4,9 +4,10 @@ import { createNoteValidationSchema } from "../../utils/ValidationSchema";
 import "./ToDoCreation.scss";
 import StarIcon from "../StarIcon";
 import { TodoCreateData } from "../../types/todo";
+import { ToDoCreationProps } from "../../types/todo";
 import { createTodo } from "../../api/todoApi";
 
-const ToDoCreation: React.FC = () => {
+const ToDoCreation: React.FC<ToDoCreationProps> = ({ onTodoCreated }) => {
   const validationSchema = createNoteValidationSchema();
 
   const formik = useFormik<TodoCreateData>({
@@ -21,10 +22,11 @@ const ToDoCreation: React.FC = () => {
       try {
         const response = await createTodo(values);
         console.log("ToDo Created:", response.data);
+        formikHelpers.resetForm();
+        onTodoCreated();
       } catch (error) {
         console.error(`Error creating a ToDo: ${error}`);
       }
-      formikHelpers.resetForm();
     },
   });
 
@@ -38,6 +40,7 @@ const ToDoCreation: React.FC = () => {
             name="title"
             value={formik.values.title}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             className="input-title"
           />
           <div
@@ -51,6 +54,11 @@ const ToDoCreation: React.FC = () => {
             />
           </div>
         </div>
+        {formik.submitCount > 0 &&
+          formik.touched.title &&
+          formik.errors.title && (
+            <div className="error-message">{formik.errors.title}</div>
+          )}
         <div className="line"></div>
         <input
           type="text"
@@ -59,7 +67,13 @@ const ToDoCreation: React.FC = () => {
           value={formik.values.description}
           onChange={formik.handleChange}
           className="input-description"
+          onBlur={formik.handleBlur}
         />
+        {formik.submitCount > 0 &&
+          formik.touched.description &&
+          formik.errors.description && (
+            <div className="error-message">{formik.errors.description}</div>
+          )}
         <div className="button-container">
           <button type="submit">Criar nota</button>
         </div>

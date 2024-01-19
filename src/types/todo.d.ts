@@ -14,3 +14,7 @@ export interface TodoCreateData {
   backgroundColor?: string;
   textColor?: string;
 }
+
+export interface ToDoCreationProps {
+  onTodoCreated: () => void;
+}

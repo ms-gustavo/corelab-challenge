@@ -10,14 +10,23 @@ const NoteApp: React.FC = () => {
   const [newNoteTitle, setNewNoteTitle] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [todoCreated, setTodoCreated] = useState(false);
 
-  useEffect(() => {
+  const refreshTodos = async () => {
     getAllTodos()
       .then((response) => {
         setTodos(response.data);
       })
       .catch((error) => console.error(`Error fetching ToDos: ${error}`));
-  }, []);
+  };
+
+  useEffect(() => {
+    refreshTodos();
+  }, [todoCreated]);
+
+  const handleTodoCreation = () => {
+    setTodoCreated((prev) => !prev);
+  };
 
   useEffect(() => {
     console.log(todos);
@@ -44,7 +53,7 @@ const NoteApp: React.FC = () => {
         handleSearchTermChange={handleSearchTermChange}
       />
       <div className="note-container">
-        <ToDoCreation />
+        <ToDoCreation onTodoCreated={handleTodoCreation} />
       </div>
       <div className="favorite-container">
         <ToDoItem />

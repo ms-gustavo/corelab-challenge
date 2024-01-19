@@ -18,6 +18,14 @@
     border-bottom: 1px solid #ccc;
   }
 
+  .error-message {
+    padding: 0.5rem;
+    color: red;
+    font-style: italic;
+    margin-top: 4px;
+    font-size: 0.85em;
+  }
+
   .input-group {
     display: flex;
     align-items: center;
