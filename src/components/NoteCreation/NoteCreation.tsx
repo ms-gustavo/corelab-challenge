@@ -1,41 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import { createNoteValidationSchema } from "../../utils/ValidationSchema";
 import "./NoteCreation.scss";
 import StarIcon from "../StarIcon";
 
-type NoteCreationProps = {
-  addNote: (title: string, description: string, isFavorite: boolean) => void;
-};
-
-const NoteCreation: React.FC<NoteCreationProps> = ({ addNote }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [isFavorite, setisFavorite] = useState(false);
-
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
-
-  const handleDescriptionChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setDescription(event.target.value);
-  };
-
-  const toggleImportant = () => {
-    setisFavorite(!isFavorite);
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      addNote(title, description, isFavorite);
-      setTitle("");
-      setDescription("");
-      setisFavorite(false);
-    }
-  };
-
+const NoteCreation: React.FC = () => {
   const validationSchema = createNoteValidationSchema();
 
   const formik = useFormik({
@@ -61,9 +30,10 @@ const NoteCreation: React.FC<NoteCreationProps> = ({ addNote }) => {
             name="title"
             value={formik.values.title}
             onChange={formik.handleChange}
+            className="input-title"
           />
           <div
-            className={`star ${formik.values.isFavorite ? "is-important" : ""}`}
+            className={`star ${formik.values.isFavorite ? "is-favorite" : ""}`}
           >
             <StarIcon
               isFavorite={formik.values.isFavorite}
@@ -73,14 +43,18 @@ const NoteCreation: React.FC<NoteCreationProps> = ({ addNote }) => {
             />
           </div>
         </div>
+        <div className="line"></div>
         <input
           type="text"
           placeholder="Descrição"
           name="description"
           value={formik.values.description}
           onChange={formik.handleChange}
+          className="input-description"
         />
-        <button type="submit">Criar nota</button>
+        <div className="button-container">
+          <button type="submit">Criar nota</button>
+        </div>
       </div>
     </form>
   );

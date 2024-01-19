@@ -2,23 +2,11 @@ import React, { useState } from "react";
 import "./styles/main.scss";
 import SearchBar from "./components/SearchBar/SearchBar";
 import NoteCreation from "./components/NoteCreation/NoteCreation";
-
-type Note = {
-  id: number;
-  title: string;
-  isFavorite: boolean;
-};
+import NoteItem from "./components/NoteItem/NoteItem";
 
 const NoteApp: React.FC = () => {
-  const [notes, setNotes] = useState<Note[]>([]);
   const [newNoteTitle, setNewNoteTitle] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-
-  //TODO: Function to add a new note
-  const addNote = (title: string, description: string) => {};
-
-  //TODO: Function to toggle the favorite status of a note
-  const toggleFavorite = (id: number) => {};
 
   //TODO: Function to handle note title input changes
   const handleNoteTitleChange = (
@@ -40,11 +28,12 @@ const NoteApp: React.FC = () => {
         searchTerm={searchTerm}
         handleSearchTermChange={handleSearchTermChange}
       />
-
-      <div className="note-creation">
-        <NoteCreation addNote={addNote} />
+      <div className="note-container">
+        <NoteCreation />
       </div>
-
+      <div className="favorite-container">
+        <NoteItem />
+      </div>
       {/* Notes List */}
       {/* Favorites Section */}
       {/* Note Upload Area */}
