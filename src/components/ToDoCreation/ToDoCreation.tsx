@@ -4,6 +4,7 @@ import { createNoteValidationSchema } from "../../utils/ValidationSchema";
 import "./ToDoCreation.scss";
 import StarIcon from "../StarIcon";
 import { TodoCreateData } from "../../types/todo";
+import { createTodo } from "../../api/todoApi";
 
 const ToDoCreation: React.FC = () => {
   const validationSchema = createNoteValidationSchema();
@@ -15,8 +16,14 @@ const ToDoCreation: React.FC = () => {
       isFavorite: false,
     },
     validationSchema,
-    onSubmit: (values, formikHelpers: FormikHelpers<TodoCreateData>) => {
+    onSubmit: async (values, formikHelpers: FormikHelpers<TodoCreateData>) => {
       console.log("values", values);
+      try {
+        const response = await createTodo(values);
+        console.log("ToDo Created:", response.data);
+      } catch (error) {
+        console.error(`Error creating a ToDo: ${error}`);
+      }
       formikHelpers.resetForm();
     },
   });
