@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles/main.scss";
 import SearchBar from "./components/SearchBar/SearchBar";
-import NoteCreation from "./components/NoteCreation/NoteCreation";
-import NoteItem from "./components/NoteItem/NoteItem";
+import ToDoCreation from "./components/ToDoCreation/ToDoCreation";
+import ToDoItem from "./components/ToDoItem/ToDoItem";
+import { getAllTodos } from "./api/todoApi";
+import { Todo } from "./types/todo";
 
 const NoteApp: React.FC = () => {
   const [newNoteTitle, setNewNoteTitle] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  useEffect(() => {
+    getAllTodos()
+      .then((response) => {
+        setTodos(response.data);
+      })
+      .catch((error) => console.error(`Error fetching ToDos: ${error}`));
+  }, []);
+
+  useEffect(() => {
+    console.log(todos);
+  }, [todos]);
 
   //TODO: Function to handle note title input changes
   const handleNoteTitleChange = (
@@ -29,10 +44,10 @@ const NoteApp: React.FC = () => {
         handleSearchTermChange={handleSearchTermChange}
       />
       <div className="note-container">
-        <NoteCreation />
+        <ToDoCreation />
       </div>
       <div className="favorite-container">
-        <NoteItem />
+        <ToDoItem />
       </div>
       {/* Notes List */}
       {/* Favorites Section */}

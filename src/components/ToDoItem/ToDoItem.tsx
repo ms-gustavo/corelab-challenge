@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./NoteItem.scss";
+import "./ToDoItem.scss";
 
 const NoteItem: React.FC = () => {
   return <h1>Teste</h1>;

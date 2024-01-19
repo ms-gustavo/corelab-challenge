@@ -1,22 +1,23 @@
 import React from "react";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import { createNoteValidationSchema } from "../../utils/ValidationSchema";
-import "./NoteCreation.scss";
+import "./ToDoCreation.scss";
 import StarIcon from "../StarIcon";
+import { TodoCreateData } from "../../types/todo";
 
-const NoteCreation: React.FC = () => {
+const ToDoCreation: React.FC = () => {
   const validationSchema = createNoteValidationSchema();
 
-  const formik = useFormik({
+  const formik = useFormik<TodoCreateData>({
     initialValues: {
       title: "",
       description: "",
       isFavorite: false,
     },
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: (values, formikHelpers: FormikHelpers<TodoCreateData>) => {
       console.log("values", values);
-      formik.resetForm();
+      formikHelpers.resetForm();
     },
   });
 
@@ -60,4 +61,4 @@ const NoteCreation: React.FC = () => {
   );
 };
 
-export default NoteCreation;
+export default ToDoCreation;
