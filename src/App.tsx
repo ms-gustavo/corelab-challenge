@@ -10,15 +10,23 @@ const NoteApp: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [favoriteTodos, setFavoriteTodos] = useState<Todo[]>([]);
   const [todoCreated, setTodoCreated] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
   const refreshTodos = async () => {
     getAllTodos()
       .then((response) => {
-        console.log("response", response);
-        setTodos(response.data);
-        setFavoriteTodos(response.data.filter((todo) => todo.isFavorite));
+        if (response.data && response.data.length > 0) {
+          setTodos(response.data);
+          setFavoriteTodos(response.data.filter((todo) => todo.isFavorite));
+          setLoadError(false);
+        } else {
+          setLoadError(true);
+        }
       })
-      .catch((error) => console.error(`Error fetching ToDos: ${error}`));
+      .catch((error) => {
+        console.error(`Error fetching ToDos: ${error}`);
+        setLoadError(true);
+      });
   };
 
   useEffect(() => {
@@ -51,20 +59,21 @@ const NoteApp: React.FC = () => {
         <ToDoForm mode="create" onTodoCreated={handleTodoCreation} />
       </div>
       <div className="favorite-container">
-        {favoriteTodos.map((todo) => (
-          <ToDoForm
-            key={todo._id}
-            mode="update"
-            todoId={todo._id}
-            initialValues={{
-              title: todo.title,
-              description: todo.description,
-              isFavorite: todo.isFavorite,
-              backgroundColor: todo.backgroundColor,
-              textColor: todo.textColor,
-            }}
-          />
-        ))}
+        {!loadError &&
+          favoriteTodos.map((todo) => (
+            <ToDoForm
+              key={todo._id}
+              mode="update"
+              todoId={todo._id}
+              initialValues={{
+                title: todo.title,
+                description: todo.description,
+                isFavorite: todo.isFavorite,
+                backgroundColor: todo.backgroundColor,
+                textColor: todo.textColor,
+              }}
+            />
+          ))}
       </div>
       {/* Notes List */}
       {/* Favorites Section */}
