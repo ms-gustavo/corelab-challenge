@@ -18,3 +18,14 @@ export interface TodoCreateData {
 export interface ToDoCreationProps {
   onTodoCreated: () => void;
 }
+
+export type ToDoFormProps = {
+  mode: "create" | "update";
+  todoId?: string;
+  initialValues?: ToDoInitialValues;
+  onTodoCreated?: () => void;
+};
+
+export type ColorPickerProps = {
+  onSelect: (color: string) => void;
+};

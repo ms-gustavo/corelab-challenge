@@ -1,3 +1,6 @@
+.update-margin {
+  margin: 1em;
+}
 .note-creation {
   display: flex;
   flex-direction: column;
@@ -24,6 +27,14 @@
     font-style: italic;
     margin-top: 4px;
     font-size: 0.85em;
+  }
+
+  .textarea {
+    min-height: 100px;
+    min-width: 100%;
+    resize: none;
+    overflow: hidden;
+    border: none;
   }
 
   .input-group {
@@ -59,5 +70,24 @@
     &:hover {
       background-color: #0056b3;
     }
+  }
+
+  .color-picker-container {
+    margin-top: 0.5em;
+    padding: 5px;
+    display: flex;
+    align-items: start;
+    gap: 15px;
+  }
+
+  .color-picker-container > div {
+    position: relative;
+  }
+
+  .color-picker-popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
   }
 }

@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./styles/main.scss";
 import SearchBar from "./components/SearchBar/SearchBar";
-import ToDoCreation from "./components/ToDoCreation/ToDoCreation";
-import ToDoItem from "./components/ToDoItem/ToDoItem";
 import { getAllTodos } from "./api/todoApi";
 import { Todo } from "./types/todo";
+import ToDoForm from "./components/shared/ToDoForm";
 
 const NoteApp: React.FC = () => {
-  const [newNoteTitle, setNewNoteTitle] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [favoriteTodos, setFavoriteTodos] = useState<Todo[]>([]);
   const [todoCreated, setTodoCreated] = useState(false);
 
   const refreshTodos = async () => {
     getAllTodos()
       .then((response) => {
         setTodos(response.data);
+        setFavoriteTodos(response.data.filter((todo) => todo.isFavorite));
       })
       .catch((error) => console.error(`Error fetching ToDos: ${error}`));
   };
@@ -30,14 +30,8 @@ const NoteApp: React.FC = () => {
 
   useEffect(() => {
     console.log(todos);
+    console.log(favoriteTodos);
   }, [todos]);
-
-  //TODO: Function to handle note title input changes
-  const handleNoteTitleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setNewNoteTitle(event.target.value);
-  };
 
   //TODO: Function to handle search term changes
   const handleSearchTermChange = (
@@ -53,10 +47,23 @@ const NoteApp: React.FC = () => {
         handleSearchTermChange={handleSearchTermChange}
       />
       <div className="note-container">
-        <ToDoCreation onTodoCreated={handleTodoCreation} />
+        <ToDoForm mode="create" onTodoCreated={handleTodoCreation} />
       </div>
       <div className="favorite-container">
-        <ToDoItem />
+        {favoriteTodos.map((todo) => (
+          <ToDoForm
+            key={todo._id}
+            mode="update"
+            todoId={todo._id}
+            initialValues={{
+              title: todo.title,
+              description: todo.description,
+              isFavorite: todo.isFavorite,
+              backgroundColor: todo.backgroundColor,
+              textColor: todo.textColor,
+            }}
+          />
+        ))}
       </div>
       {/* Notes List */}
       {/* Favorites Section */}

@@ -1,0 +1,18 @@
+.color-picker-popup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 5px;
+  background-color: #dde0e4;
+  border-radius: 10px;
+  width: calc(3 * 20px + 2 * 5px);
+}
+
+.color-option {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
