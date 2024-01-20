@@ -44,6 +44,24 @@ const NoteApp: React.FC = () => {
     setTodoCreated((prev) => !prev);
   };
 
+  const updateTodoInList = (updatedTodo: Todo) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo._id === updatedTodo._id ? updatedTodo : todo
+      )
+    );
+
+    setTodos((prevTodos) => {
+      const updatedFavoriteTodos = prevTodos.filter((todo) => todo.isFavorite);
+      const updatedNonFavoriteTodos = prevTodos.filter(
+        (todo) => !todo.isFavorite
+      );
+      setFavoriteTodos(updatedFavoriteTodos);
+      setNonFavoriteTodos(updatedNonFavoriteTodos);
+      return prevTodos;
+    });
+  };
+
   useEffect(() => {
     console.log(todos);
     console.log(favoriteTodos);
@@ -63,11 +81,19 @@ const NoteApp: React.FC = () => {
         handleSearchTermChange={handleSearchTermChange}
       />
       <div className="note-container">
-        <ToDoForm mode="create" onTodoCreated={handleTodoCreation} />
+        <ToDoForm
+          mode="create"
+          onUpdateTodoInList={updateTodoInList}
+          onTodoCreated={handleTodoCreation}
+        />
       </div>
       <div className="favorite-container">
         {!loadError && (
-          <TodoList todos={favoriteTodos} onTodoDeleted={handleTodoDeletion} />
+          <TodoList
+            todos={favoriteTodos}
+            onTodoDeleted={handleTodoDeletion}
+            onUpdateTodoInList={updateTodoInList}
+          />
         )}
       </div>
       <div className="favorite-container">
@@ -75,6 +101,7 @@ const NoteApp: React.FC = () => {
           <TodoList
             todos={nonFavoriteTodos}
             onTodoDeleted={handleTodoDeletion}
+            onUpdateTodoInList={updateTodoInList}
           />
         )}
       </div>

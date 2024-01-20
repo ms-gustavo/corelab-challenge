@@ -21,6 +21,7 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
   initialValues,
   onTodoCreated,
   onTodoDeleted,
+  onUpdateTodoInList,
 }) => {
   const [showTextColorPicker, setShowTextColorPicker] = useState(false);
   const [showBackgroundColorPicker, setShowBackgroundColorPicker] =
@@ -156,17 +157,17 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
   };
 
   const handleFavoriteToggle = async () => {
-    formik.setFieldValue("isFavorite", !formik.values.isFavorite);
+    const newFavoriteValue = !formik.values.isFavorite;
+    formik.setFieldValue("isFavorite", newFavoriteValue);
     if (mode === "update" && todoId) {
-      const newFavoriteValue = !formik.values.isFavorite;
-      formik.setFieldValue("isFavorite", newFavoriteValue);
-
       try {
-        await updateTodo(todoId, {
+        const response = await updateTodo(todoId, {
           ...formik.values,
           isFavorite: newFavoriteValue,
         });
         console.log("Favorite status updated");
+        const updatedTodo = response.data;
+        onUpdateTodoInList(updatedTodo);
       } catch (error) {
         console.error("Error toggling favorite:", error);
       }

@@ -2,7 +2,11 @@ import React from "react";
 import { TodoListProps } from "../../../types/todo";
 import ToDoForm from "../ToDoForm";
 
-const TodoList: React.FC<TodoListProps> = ({ todos, onTodoDeleted }) => {
+const TodoList: React.FC<TodoListProps> = ({
+  todos,
+  onTodoDeleted,
+  onUpdateTodoInList,
+}) => {
   return (
     <>
       {todos.map((todo) => (
@@ -18,6 +22,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, onTodoDeleted }) => {
             textColor: todo.textColor,
           }}
           onTodoDeleted={() => onTodoDeleted(todo._id)}
+          onUpdateTodoInList={onUpdateTodoInList}
         />
       ))}
     </>

@@ -22,6 +22,7 @@ export interface ToDoCreationProps {
 export interface TodoListProps {
   todos: Todo[];
   onTodoDeleted: (todoId: string) => void;
+  onUpdateTodoInList: (updatedTodo: Todo) => void;
 }
 
 export type ToDoFormProps = {
@@ -30,6 +31,7 @@ export type ToDoFormProps = {
   initialValues?: ToDoInitialValues;
   onTodoCreated?: () => void;
   onTodoDeleted?: () => void;
+  onUpdateTodoInList: (updatedTodo: Todo) => void;
 };
 
 export type ColorPickerProps = {
