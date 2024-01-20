@@ -374,6 +374,6 @@ When the user try to provide an invalid color to update
 
 ## Additional Notes
 
-- Colors can be specified as strings (valid colors: "red", "blue", "green", "yellow", "white", "black").
+- Colors can be specified as strings (valid colors: "black", "palegoldenrod", "lightpink", "peachpuff", "white", "lavender", "gray", "lightskyblue", "khaki", "gainsboro",).
 - To filter by favorites, use the `/todos/favorites` endpoint.
 - To filter by backgroundColor, use the `/todos/color/:color` endpoint.
