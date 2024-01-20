@@ -8,19 +8,33 @@ import TodoList from "./components/shared/ToDoList/ToDoList";
 
 const NoteApp: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [favoriteTodos, setFavoriteTodos] = useState<Todo[]>([]);
   const [nonFavoriteTodos, setNonFavoriteTodos] = useState<Todo[]>([]);
   const [todoCreated, setTodoCreated] = useState(false);
   const [loadError, setLoadError] = useState(false);
 
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500); // 500ms debounce time
+
+    return () => clearTimeout(timerId);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    refreshTodos();
+  }, [todoCreated, debouncedSearchTerm]); // Added debouncedSearchTerm as a dependency
+
   const refreshTodos = async () => {
     getAllTodos()
       .then((response) => {
         if (response.data && response.data.length > 0) {
-          setTodos(response.data);
-          setFavoriteTodos(response.data.filter((todo) => todo.isFavorite));
-          setNonFavoriteTodos(response.data.filter((todo) => !todo.isFavorite));
+          const filteredTodos = filterTodosBySearchTerm(response.data);
+          setTodos(filteredTodos);
+          setFavoriteTodos(filteredTodos.filter((todo) => todo.isFavorite));
+          setNonFavoriteTodos(filteredTodos.filter((todo) => !todo.isFavorite));
           setLoadError(false);
         } else {
           setLoadError(true);
@@ -32,9 +46,18 @@ const NoteApp: React.FC = () => {
       });
   };
 
-  useEffect(() => {
-    refreshTodos();
-  }, [todoCreated]);
+  const filterTodosBySearchTerm = (todos: Todo[]) => {
+    if (!debouncedSearchTerm) {
+      return todos;
+    }
+    return todos.filter(
+      (todo) =>
+        todo.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+        todo.backgroundColor
+          .toLowerCase()
+          .includes(debouncedSearchTerm.toLowerCase())
+    );
+  };
 
   const handleTodoDeletion = () => {
     refreshTodos();
@@ -62,12 +85,6 @@ const NoteApp: React.FC = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(todos);
-    console.log(favoriteTodos);
-  }, [todos, favoriteTodos]);
-
-  //TODO: Function to handle search term changes
   const handleSearchTermChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -80,14 +97,14 @@ const NoteApp: React.FC = () => {
         searchTerm={searchTerm}
         handleSearchTermChange={handleSearchTermChange}
       />
-      <div className="note-container">
+      <div className="create-note-container">
         <ToDoForm
           mode="create"
           onUpdateTodoInList={updateTodoInList}
           onTodoCreated={handleTodoCreation}
         />
       </div>
-      <div className="favorite-container">
+      <div className="note-container">
         {!loadError && (
           <TodoList
             todos={favoriteTodos}
@@ -96,7 +113,7 @@ const NoteApp: React.FC = () => {
           />
         )}
       </div>
-      <div className="favorite-container">
+      <div className="note-container">
         {!loadError && (
           <TodoList
             todos={nonFavoriteTodos}

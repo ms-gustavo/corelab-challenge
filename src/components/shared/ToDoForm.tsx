@@ -179,7 +179,17 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
       onSubmit={formik.handleSubmit}
       className={mode === "update" ? "update-margin" : ""}
     >
-      <div className="note-creation">
+      <div
+        className="note-creation"
+        style={
+          mode === "update"
+            ? {
+                backgroundColor: formik.values.backgroundColor,
+                color: formik.values.textColor,
+              }
+            : {}
+        }
+      >
         <div className="input-group">
           <input
             type="text"
@@ -192,6 +202,14 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
             }}
             onBlur={formik.handleBlur}
             className="input-title"
+            style={
+              mode === "update"
+                ? {
+                    backgroundColor: formik.values.backgroundColor,
+                    color: formik.values.textColor,
+                  }
+                : {}
+            }
           />
           <div
             className={`star ${formik.values.isFavorite ? "is-favorite" : ""}`}
@@ -217,9 +235,16 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
             name="description"
             placeholder="Descrição"
             value={formik.values.description}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.handleChange(e);
+              handleAutoSave();
+            }}
             onBlur={formik.handleBlur}
             className="input-description textarea"
+            style={{
+              backgroundColor: formik.values.backgroundColor,
+              color: formik.values.textColor,
+            }}
           />
         ) : (
           <input
