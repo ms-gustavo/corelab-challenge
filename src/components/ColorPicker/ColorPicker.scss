@@ -1,13 +1,14 @@
 .color-picker-popup {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   gap: 5px;
   padding: 5px;
-  background-color: #dde0e4;
+  background-color: #f99494;
   border-radius: 10px;
-  width: calc(3 * 20px + 2 * 5px);
+  width: 40dvw;
+  max-width: 300px;
 }
 
 .color-option {
