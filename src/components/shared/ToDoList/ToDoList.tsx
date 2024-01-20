@@ -1,6 +1,6 @@
 import React from "react";
 import { TodoListProps } from "../../../types/todo";
-import ToDoForm from "../ToDoForm";
+import ToDoForm from "../ToDoForm/ToDoForm";
 
 const TodoList: React.FC<TodoListProps> = ({
   todos,

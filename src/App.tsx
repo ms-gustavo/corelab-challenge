@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles/main.scss";
 import SearchBar from "./components/SearchBar/SearchBar";
-import ToDoForm from "./components/shared/ToDoForm";
+import ToDoForm from "./components/shared/ToDoForm/ToDoForm";
 import useTodoManager from "./hooks/useTodoManager";
 import useSearch from "./hooks/useSearch";
 import ErrorDisplay from "./components/ErrorDisplay/ErrorDisplay";
