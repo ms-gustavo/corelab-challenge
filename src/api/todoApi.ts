@@ -18,8 +18,11 @@ export const deleteTodo = (todoId: string) =>
 export const markTodoAsFavorite = (todoId: string) =>
   api.put<Todo>(`/todos/${todoId}/favorite`);
 
-export const setBackgroundColor = (todoId: string, color: string) =>
-  api.put<Todo>(`/todos/${todoId}/color`, { backgroundColor: color });
+export const changeNoteColor = (
+  todoId: string,
+  backgroundColor: string,
+  textColor: string
+) => api.put<Todo>(`/todos/${todoId}/color`, { backgroundColor, textColor });
 
 export const getAllFavoriteTodos = () => api.get<Todo[]>("/todos/favorites");
 

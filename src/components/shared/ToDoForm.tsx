@@ -9,6 +9,7 @@ import {
   updateTodo,
   markTodoAsFavorite,
   deleteTodo,
+  changeNoteColor,
 } from "../../api/todoApi";
 import changeBG from "../../assets/changeBG.svg";
 import changeText from "../../assets/changeText.svg";
@@ -64,11 +65,14 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
       title: "",
       description: "",
       isFavorite: false,
+      backgroundColor: "black",
+      textColor: "white",
     },
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
         if (mode === "create") {
+          console.log("create", values);
           await createTodo(values);
           formik.resetForm();
           onTodoCreated && onTodoCreated();
@@ -94,14 +98,33 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
     }
   };
 
-  const handleTextColorSelect = (color: string) => {
+  const handleTextColorSelect = async (color: string) => {
     formik.setFieldValue("textColor", color);
-    handleAutoSave();
+    if (todoId) {
+      try {
+        await changeNoteColor(todoId, formik.values.backgroundColor, color);
+        console.log("Text color updated");
+      } catch (error) {
+        console.error("Error updating text color:", error);
+      }
+    } else {
+      console.error("Todo ID or Background Color is undefined");
+    }
     setShowTextColorPicker(false);
   };
-  const handleBackgroundColorSelect = (color: string) => {
+
+  const handleBackgroundColorSelect = async (color: string) => {
     formik.setFieldValue("backgroundColor", color);
-    handleAutoSave();
+    if (todoId) {
+      try {
+        await changeNoteColor(todoId, color, formik.values.textColor);
+        console.log("Background color updated");
+      } catch (error) {
+        console.error("Error updating background color:", error);
+      }
+    } else {
+      console.error("Todo ID or Text Color is undefined");
+    }
     setShowBackgroundColorPicker(false);
   };
 
@@ -128,24 +151,23 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
       setShowTextColorPicker(false);
     }
   };
-  //TODO: Erro ao atualizar favoritos > investigar
-  useEffect(() => {
-    const updateFavoriteStatus = async () => {
-      if (mode === "update" && todoId) {
-        try {
-          await markTodoAsFavorite("todoId");
-        } catch (error) {
-          console.error("Error toggling favorite:", error);
-        }
+
+  const handleFavoriteToggle = async () => {
+    console.log("eu");
+    if (mode === "update" && todoId) {
+      const newFavoriteValue = !formik.values.isFavorite;
+      formik.setFieldValue("isFavorite", newFavoriteValue);
+
+      try {
+        await updateTodo(todoId, {
+          ...formik.values,
+          isFavorite: newFavoriteValue,
+        });
+        console.log("Favorite status updated");
+      } catch (error) {
+        console.error("Error toggling favorite:", error);
       }
-    };
-
-    updateFavoriteStatus();
-  }, [formik.values.isFavorite, mode, todoId]);
-
-  const handleFavoriteToggle = () => {
-    const newFavoriteValue = !formik.values.isFavorite;
-    formik.setFieldValue("isFavorite", newFavoriteValue);
+    }
   };
 
   return (

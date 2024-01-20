@@ -19,6 +19,11 @@ export interface ToDoCreationProps {
   onTodoCreated: () => void;
 }
 
+export interface TodoListProps {
+  todos: Todo[];
+  onTodoDeleted: (todoId: string) => void;
+}
+
 export type ToDoFormProps = {
   mode: "create" | "update";
   todoId?: string;

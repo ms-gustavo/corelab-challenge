@@ -4,11 +4,13 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import { getAllTodos } from "./api/todoApi";
 import { Todo } from "./types/todo";
 import ToDoForm from "./components/shared/ToDoForm";
+import TodoList from "./components/shared/ToDoList/ToDoList";
 
 const NoteApp: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
   const [favoriteTodos, setFavoriteTodos] = useState<Todo[]>([]);
+  const [nonFavoriteTodos, setNonFavoriteTodos] = useState<Todo[]>([]);
   const [todoCreated, setTodoCreated] = useState(false);
   const [loadError, setLoadError] = useState(false);
 
@@ -18,6 +20,7 @@ const NoteApp: React.FC = () => {
         if (response.data && response.data.length > 0) {
           setTodos(response.data);
           setFavoriteTodos(response.data.filter((todo) => todo.isFavorite));
+          setNonFavoriteTodos(response.data.filter((todo) => !todo.isFavorite));
           setLoadError(false);
         } else {
           setLoadError(true);
@@ -63,26 +66,18 @@ const NoteApp: React.FC = () => {
         <ToDoForm mode="create" onTodoCreated={handleTodoCreation} />
       </div>
       <div className="favorite-container">
-        {!loadError &&
-          favoriteTodos.map((todo) => (
-            <ToDoForm
-              key={todo._id}
-              mode="update"
-              todoId={todo._id}
-              initialValues={{
-                title: todo.title,
-                description: todo.description,
-                isFavorite: todo.isFavorite,
-                backgroundColor: todo.backgroundColor,
-                textColor: todo.textColor,
-              }}
-              onTodoDeleted={handleTodoDeletion}
-            />
-          ))}
+        {!loadError && (
+          <TodoList todos={favoriteTodos} onTodoDeleted={handleTodoDeletion} />
+        )}
       </div>
-      {/* Notes List */}
-      {/* Favorites Section */}
-      {/* Note Upload Area */}
+      <div className="favorite-container">
+        {!loadError && (
+          <TodoList
+            todos={nonFavoriteTodos}
+            onTodoDeleted={handleTodoDeletion}
+          />
+        )}
+      </div>
     </div>
   );
 };
