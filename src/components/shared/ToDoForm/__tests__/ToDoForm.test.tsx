@@ -27,8 +27,8 @@ describe("<ToDoForm />", () => {
     title: "Test",
     description: "Test",
     isFavorite: false,
-    backgroundColor: "black",
-    textColor: "white",
+    backgroundColor: "white",
+    textColor: "black",
   };
 
   it("renders correctly in create mode", () => {
@@ -40,7 +40,7 @@ describe("<ToDoForm />", () => {
       />
     );
 
-    expect(getByText("Create Note")).toBeInTheDocument();
+    expect(getByText("Criar nota")).toBeInTheDocument();
   });
 
   it("renders correctly in update mode", () => {
@@ -72,7 +72,7 @@ describe("<ToDoForm />", () => {
     fireEvent.change(screen.getByPlaceholderText("Digite aqui..."), {
       target: { value: "Test" },
     });
-    fireEvent.click(getByText("Create Note"));
+    fireEvent.click(getByText("Criar nota"));
 
     await waitFor(() =>
       expect(todoApi.createTodo).toHaveBeenCalledWith(initialValues)
