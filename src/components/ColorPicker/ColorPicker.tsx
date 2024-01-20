@@ -3,7 +3,18 @@ import "./ColorPicker.scss";
 import { ColorPickerProps } from "../../types/todo";
 
 const ColorPicker: React.FC<ColorPickerProps> = ({ onSelect }) => {
-  const colors = ["red", "blue", "green", "yellow", "white", "black"];
+  const colors = [
+    "black",
+    "palegoldenrod",
+    "lightpink",
+    "peachpuff",
+    "white",
+    "lavender",
+    "gray",
+    "lightskyblue",
+    "khaki",
+    "gainsboro",
+  ];
 
   return (
     <div className="color-picker-popup">
