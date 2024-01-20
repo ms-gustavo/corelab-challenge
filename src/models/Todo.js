@@ -16,12 +16,12 @@ const todoSchema = new mongoose.Schema({
   backgroundColor: {
     type: String,
     enum: validColors,
-    default: "black",
+    default: "white",
   },
   textColor: {
     type: String,
     enum: validColors,
-    default: "white",
+    default: "black",
   },
 });
 
