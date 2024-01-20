@@ -7,13 +7,13 @@ import ColorPicker from "../ColorPicker/ColorPicker";
 import {
   createTodo,
   updateTodo,
-  markTodoAsFavorite,
   deleteTodo,
   changeNoteColor,
 } from "../../api/todoApi";
 import changeBG from "../../assets/changeBG.svg";
 import changeText from "../../assets/changeText.svg";
 import removeButton from "../../assets/removeButton.svg";
+import { createNoteValidationSchema } from "../../utils/ValidationSchema";
 
 const ToDoForm: React.FC<ToDoFormProps> = ({
   mode,
@@ -60,6 +60,8 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
     };
   }, []);
 
+  const validationSchema = createNoteValidationSchema();
+
   const formik = useFormik({
     initialValues: initialValues || {
       title: "",
@@ -68,6 +70,7 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
       backgroundColor: "black",
       textColor: "white",
     },
+    validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
@@ -153,7 +156,7 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
   };
 
   const handleFavoriteToggle = async () => {
-    console.log("eu");
+    formik.setFieldValue("isFavorite", !formik.values.isFavorite);
     if (mode === "update" && todoId) {
       const newFavoriteValue = !formik.values.isFavorite;
       formik.setFieldValue("isFavorite", newFavoriteValue);
@@ -232,8 +235,8 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
           formik.touched.description &&
           formik.errors.description && (
             <div className="error-message">
-              {typeof formik.errors.title === "string"
-                ? formik.errors.title
+              {typeof formik.errors.description === "string"
+                ? formik.errors.description
                 : ""}
             </div>
           )}
