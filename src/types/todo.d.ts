@@ -24,6 +24,7 @@ export type ToDoFormProps = {
   todoId?: string;
   initialValues?: ToDoInitialValues;
   onTodoCreated?: () => void;
+  onTodoDeleted?: () => void;
 };
 
 export type ColorPickerProps = {

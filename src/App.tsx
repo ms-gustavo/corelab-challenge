@@ -33,6 +33,10 @@ const NoteApp: React.FC = () => {
     refreshTodos();
   }, [todoCreated]);
 
+  const handleTodoDeletion = () => {
+    refreshTodos();
+  };
+
   const handleTodoCreation = () => {
     setTodoCreated((prev) => !prev);
   };
@@ -72,6 +76,7 @@ const NoteApp: React.FC = () => {
                 backgroundColor: todo.backgroundColor,
                 textColor: todo.textColor,
               }}
+              onTodoDeleted={handleTodoDeletion}
             />
           ))}
       </div>

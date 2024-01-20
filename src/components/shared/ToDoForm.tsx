@@ -19,6 +19,7 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
   todoId,
   initialValues,
   onTodoCreated,
+  onTodoDeleted,
 }) => {
   const [showTextColorPicker, setShowTextColorPicker] = useState(false);
   const [showBackgroundColorPicker, setShowBackgroundColorPicker] =
@@ -82,6 +83,17 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
     },
   });
 
+  const handleDelete = async () => {
+    try {
+      if (todoId) {
+        await deleteTodo(todoId);
+        onTodoDeleted && onTodoDeleted();
+      }
+    } catch (error) {
+      console.error("Error deleting ToDo:", error);
+    }
+  };
+
   const handleTextColorSelect = (color: string) => {
     formik.setFieldValue("textColor", color);
     handleAutoSave();
@@ -116,18 +128,24 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
       setShowTextColorPicker(false);
     }
   };
+  //TODO: Erro ao atualizar favoritos > investigar
+  useEffect(() => {
+    const updateFavoriteStatus = async () => {
+      if (mode === "update" && todoId) {
+        try {
+          await markTodoAsFavorite("todoId");
+        } catch (error) {
+          console.error("Error toggling favorite:", error);
+        }
+      }
+    };
 
-  const handleFavoriteToggle = async () => {
+    updateFavoriteStatus();
+  }, [formik.values.isFavorite, mode, todoId]);
+
+  const handleFavoriteToggle = () => {
     const newFavoriteValue = !formik.values.isFavorite;
     formik.setFieldValue("isFavorite", newFavoriteValue);
-
-    if (mode === "update" && todoId) {
-      try {
-        await markTodoAsFavorite(todoId);
-      } catch (error) {
-        console.error("Error toggling favorite:", error);
-      }
-    }
   };
 
   return (
@@ -223,12 +241,12 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
                 </div>
               </div>
 
-              {/* Div for Remove Button */}
               <div className="remove-button">
                 <img
                   src={removeButton}
-                  onClick={() => deleteTodo && todoId && deleteTodo(todoId)}
+                  onClick={handleDelete}
                   className="delete-icon"
+                  alt="Remove button"
                 />
               </div>
             </div>
