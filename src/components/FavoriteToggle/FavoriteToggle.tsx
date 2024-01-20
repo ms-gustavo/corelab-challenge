@@ -1,10 +1,6 @@
 import React from "react";
 import StarIcon from "../StarIcon";
-
-interface FavoriteToggleProps {
-  isFavorite: boolean;
-  onToggle: () => void;
-}
+import { FavoriteToggleProps } from "../../types/todo";
 
 const FavoriteToggle: React.FC<FavoriteToggleProps> = ({
   isFavorite,

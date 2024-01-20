@@ -3,13 +3,7 @@ import ColorPicker from "../ColorPicker/ColorPicker";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import changeText from "../../assets/changeText.svg";
 import changeBG from "../../assets/changeBG.svg";
-
-interface ColorPickerTriggerProps {
-  type: "textColor" | "backgroundColor";
-  onSelect: (color: string) => void;
-  showPicker: boolean;
-  togglePicker: () => void;
-}
+import { ColorPickerTriggerProps } from "../../types/todo";
 
 const ColorPickerTrigger: React.FC<ColorPickerTriggerProps> = ({
   type,

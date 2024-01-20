@@ -1,15 +1,6 @@
 import React from "react";
-import { FormikProps } from "formik";
-import { TodoCreateData } from "../../types/todo";
+import { FormFieldsProps } from "../../types/todo";
 import FavoriteToggle from "../FavoriteToggle/FavoriteToggle";
-
-interface FormFieldsProps {
-  mode: "create" | "update";
-  formik: FormikProps<TodoCreateData>;
-  handleAutoSave?: () => void;
-  isFavorite: boolean;
-  onFavoriteToggle: () => void;
-}
 
 const FormFields: React.FC<FormFieldsProps> = ({
   mode,

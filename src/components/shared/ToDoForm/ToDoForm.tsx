@@ -10,7 +10,6 @@ import {
 } from "../../../api/todoApi";
 import { createNoteValidationSchema } from "../../../utils/ValidationSchema";
 import ColorPickerTrigger from "../../ColorPickerTrigger/ColorPickerTrigger";
-import FavoriteToggle from "../../FavoriteToggle/FavoriteToggle";
 import FormFields from "../../FormFields/FormFields";
 import SubmitButton from "../../SubmitButton/SubmitButton";
 import removeButton from "../../../assets/removeButton.svg";

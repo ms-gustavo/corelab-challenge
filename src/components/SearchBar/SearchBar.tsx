@@ -2,11 +2,7 @@ import React from "react";
 import "./SearchBar.scss";
 import logo from "../../assets/logo.png";
 import searchIcon from "../../assets/search.svg";
-
-type SearchBarProps = {
-  searchTerm: string;
-  handleSearchTermChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+import { SearchBarProps } from "../../types/todo";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   searchTerm,

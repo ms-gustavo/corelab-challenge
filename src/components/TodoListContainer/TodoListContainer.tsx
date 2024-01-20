@@ -1,12 +1,6 @@
 import React from "react";
 import TodoList from "../shared/ToDoList/ToDoList";
-import { Todo } from "../../types/todo";
-
-type TodoListContainerProps = {
-  todos: Todo[];
-  onTodoDeleted: () => void;
-  onUpdateTodoInList: (updatedTodo: Todo) => void;
-};
+import { TodoListContainerProps } from "../../types/todo";
 
 const TodoListContainer: React.FC<TodoListContainerProps> = ({
   todos,

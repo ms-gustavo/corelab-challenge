@@ -1,9 +1,5 @@
 import React from "react";
-
-type StarIconProps = {
-  isFavorite: boolean;
-  onClick: () => void;
-};
+import { StarIconProps } from "../types/todo";
 
 const StarIcon: React.FC<StarIconProps> = ({ isFavorite, onClick }) => {
   const fillColor = isFavorite ? "#FFFF00" : "#FFFFFF";

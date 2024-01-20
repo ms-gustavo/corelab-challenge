@@ -6,7 +6,6 @@ const useTodoManager = (debouncedSearchTerm: string) => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [favoriteTodos, setFavoriteTodos] = useState<Todo[]>([]);
   const [nonFavoriteTodos, setNonFavoriteTodos] = useState<Todo[]>([]);
-  const [loadError, setLoadError] = useState<boolean>(false);
   const [todoCreated, setTodoCreated] = useState<boolean>(false);
 
   useEffect(() => {
@@ -16,19 +15,24 @@ const useTodoManager = (debouncedSearchTerm: string) => {
   const refreshTodos = async () => {
     try {
       const response = await getAllTodos();
-      if (response.data && response.data.length > 0) {
+      if (Array.isArray(response.data)) {
         const filteredTodos = filterTodosBySearchTerm(response.data);
         setTodos(filteredTodos);
         setFavoriteTodos(filteredTodos.filter((todo) => todo.isFavorite));
         setNonFavoriteTodos(filteredTodos.filter((todo) => !todo.isFavorite));
-      } else {
-        setLoadError(true);
       }
     } catch (error) {
       console.error(`Error fetching ToDos: ${error}`);
-      setLoadError(true);
+      setTodos([]);
+      setFavoriteTodos([]);
+      setNonFavoriteTodos([]);
     }
   };
+
+  useEffect(() => {
+    console.log("nonFavoriteTodos", nonFavoriteTodos);
+    console.log("favoriteTodos", favoriteTodos);
+  }, [nonFavoriteTodos, favoriteTodos]);
 
   const filterTodosBySearchTerm = (todos: Todo[]) => {
     if (!debouncedSearchTerm) {
@@ -65,7 +69,6 @@ const useTodoManager = (debouncedSearchTerm: string) => {
     todos,
     favoriteTodos,
     nonFavoriteTodos,
-    loadError,
     refreshTodos,
     updateTodoInList,
     handleTodoCreation,
