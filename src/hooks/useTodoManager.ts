@@ -29,11 +29,6 @@ const useTodoManager = (debouncedSearchTerm: string) => {
     }
   };
 
-  useEffect(() => {
-    console.log("nonFavoriteTodos", nonFavoriteTodos);
-    console.log("favoriteTodos", favoriteTodos);
-  }, [nonFavoriteTodos, favoriteTodos]);
-
   const filterTodosBySearchTerm = (todos: Todo[]) => {
     if (!debouncedSearchTerm) {
       return todos;

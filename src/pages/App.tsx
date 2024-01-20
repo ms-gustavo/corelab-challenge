@@ -1,10 +1,10 @@
 import React from "react";
-import "./styles/main.scss";
-import SearchBar from "./components/SearchBar/SearchBar";
-import ToDoForm from "./components/shared/ToDoForm/ToDoForm";
-import useTodoManager from "./hooks/useTodoManager";
-import useSearch from "./hooks/useSearch";
-import TodoListContainer from "./components/TodoListContainer/TodoListContainer";
+import "../styles/main.scss";
+import SearchBar from "../components/SearchBar/SearchBar";
+import ToDoForm from "../components/shared/ToDoForm/ToDoForm";
+import useTodoManager from "../hooks/useTodoManager";
+import useSearch from "../hooks/useSearch";
+import TodoListContainer from "../components/TodoListContainer/TodoListContainer";
 
 const NoteApp: React.FC = () => {
   const { searchTerm, setSearchTerm, debouncedSearchTerm } = useSearch("");

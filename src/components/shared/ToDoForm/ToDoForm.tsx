@@ -39,14 +39,12 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
       setSubmitting(true);
       try {
         if (mode === "create") {
-          console.log("create", values);
           await createTodo(values);
           formik.resetForm();
           onTodoCreated && onTodoCreated();
         } else if (mode === "update" && todoId) {
           await updateTodo(todoId, values);
         }
-        console.log("Form submitted with values:", values);
       } catch (error) {
         console.error("Error submiting form:", error);
       }
@@ -70,7 +68,6 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
     if (todoId) {
       try {
         await changeNoteColor(todoId, formik.values.backgroundColor, color);
-        console.log("Text color updated");
       } catch (error) {
         console.error("Error updating text color:", error);
       }
@@ -85,7 +82,6 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
     if (todoId) {
       try {
         await changeNoteColor(todoId, color, formik.values.textColor);
-        console.log("Background color updated");
       } catch (error) {
         console.error("Error updating background color:", error);
       }
@@ -114,7 +110,6 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
           ...formik.values,
           isFavorite: newFavoriteValue,
         });
-        console.log("Favorite status updated");
         const updatedTodo = response.data;
         onUpdateTodoInList(updatedTodo);
       } catch (error) {
