@@ -4,7 +4,7 @@ const SubmitButton: React.FC = () => {
   return (
     <div className="button-container">
       <button type="submit" className="submit-button">
-        Create Note
+        Criar nota
       </button>
     </div>
   );

@@ -36,6 +36,10 @@
     overflow: hidden;
     border: none;
   }
+  .input-description:focus {
+    outline: none;
+    border: none;
+  }
 
   .input-group {
     display: flex;
@@ -43,7 +47,10 @@
     input[type="text"] {
       flex-grow: 1;
     }
-
+    input[type="text"]:focus {
+      outline: none;
+      border: none;
+    }
     input[type="checkbox"] {
       margin-left: 0.5rem;
     }

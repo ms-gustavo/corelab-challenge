@@ -31,8 +31,8 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
       title: "",
       description: "",
       isFavorite: false,
-      backgroundColor: "black",
-      textColor: "white",
+      backgroundColor: "white",
+      textColor: "black",
     },
     validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
