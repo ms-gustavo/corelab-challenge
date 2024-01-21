@@ -9,11 +9,17 @@ Front-End for the challenge proposed by Corelab as a requirement for a Junior De
 ## Technologies used
 
 **UI Library**: React (v18.2.0)
+
 **State Management**: Formik (v2.4.5)
+
 **Validation**: Yup (v1.3.3)
+
 **Styling**: SASS (v1.70.0)
+
 **HTTP Client**: Axios (v1.6.5)
+
 **TypeScript**: (v4.9.5)
+
 **Testing**: Jest, @testing-library/react
 
 ## Base URL
