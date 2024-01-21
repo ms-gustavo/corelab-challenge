@@ -18,6 +18,31 @@ API for the challenge proposed by Corelab as a requirement for a Junior Develope
 
 http://localhost:3012/api
 
+## Setup and Local Run
+
+1. Clone the repository
+
+```bash
+git@github.com:ms-gustavo/corelab-challenge.git
+```
+
+2. Navigate to the project directory
+
+```bash
+cd corelab-challenge
+```
+
+4. Switch to backend branch
+
+```bash
+git checkout backend
+```
+
+4. Create an `.env` file:
+
+- Copy the content of `.envexample` into a new file named `.env`
+- Update the values in the `.env` file as needed.
+
 ## MongoDB Atlas Connection String
 
 Connect to your MongoDB Atlas cluster using the following connection string:
@@ -40,37 +65,11 @@ Replace the following placeholders:
 mongodb+srv://myuser:mypassword@cluster0.mongodb.net/mydatabase
 ```
 
-## Setup and Local Run
-
-1. Clone the repository
+5. Run docker command
 
 ```bash
-git@github.com:ms-gustavo/corelab-challenge.git
+docker-compose up
 ```
-
-2. Navigate to the project directory
-
-```bash
-cd corelab-challenge
-```
-
-3. Create an `.env` file:
-
-- Copy the content of `.envexample` into a new file named `.env`
-- Update the values in the `.env` file as needed.
-
-4. Install dependencies
-
-```bash
-npm install
-```
-
-5. Start the server
-
-```bash
-npm start
-```
-
 6. This To-Do List API should be running locally at `http://localhost:3012/api`
 
 ## Running the tests
@@ -78,7 +77,13 @@ npm start
 To run the tests, run the following command
 
 ```bash
-  npm test
+docker exec -it corelab-challenge-app-1 bash
+```
+
+and then run the following command
+
+```bash
+npm test
 ```
 
 ## API Documentation
@@ -96,8 +101,8 @@ To run the tests, run the following command
   "title": "Task Title",
   "description": "Task Description",
   "isFavorite": false,
-  "backgroundColor": "black",
-  "textColor": "white"
+  "backgroundColor": "white",
+  "textColor": "black"
 }
 ```
 
@@ -109,8 +114,8 @@ To run the tests, run the following command
   "title": "Task Title",
   "description": "Task Description",
   "isFavorite": false,
-  "backgroundColor": "black",
-  "textColor": "white"
+  "backgroundColor": "white",
+  "textColor": "black"
 }
 ```
 
@@ -129,16 +134,16 @@ GET /todos
     "title": "Task 1",
     "description": "Description 1",
     "isFavorite": false,
-    "backgroundColor": "black",
-    "textColor": "white"
+    "backgroundColor": "white",
+    "textColor": "black"
   },
   {
     "_id": "unique_todo_id_2",
     "title": "Task 2",
     "description": "Description 2",
     "isFavorite": true,
-    "backgroundColor": "black",
-    "textColor": "white"
+    "backgroundColor": "white",
+    "textColor": "black"
   }
   // ... other todos
 ]
@@ -158,8 +163,8 @@ GET /todos/:id
   "title": "Task Title",
   "description": "Task Description",
   "isFavorite": false,
-  "backgroundColor": "black",
-  "textColor": "white"
+  "backgroundColor": "white",
+  "textColor": "black"
 }
 ```
 
@@ -176,8 +181,8 @@ PUT /todos/:id
   "title": "Updated Task Title",
   "description": "Updated Task Description",
   "isFavorite": true,
-  "backgroundColor": "black",
-  "textColor": "white"
+  "backgroundColor": "white",
+  "textColor": "black"
 }
 ```
 
@@ -220,8 +225,8 @@ PUT /todos/:id/favorite
   "title": "Task Title",
   "description": "Task Description",
   "isFavorite": true,
-  "backgroundColor": "black",
-  "textColor": "white"
+  "backgroundColor": "white",
+  "textColor": "black"
 }
 ```
 
@@ -235,7 +240,7 @@ PUT /todos/:id/color
 
 ```json
 {
-  "backgroundColor": "red"
+  "backgroundColor": "gray"
 }
 ```
 
@@ -247,7 +252,7 @@ PUT /todos/:id/color
   "title": "Task Title",
   "description": "Task Description",
   "isFavorite": false,
-  "backgroundColor": "red",
+  "backgroundColor": "gray",
   "textColor": "white"
 }
 ```
@@ -267,8 +272,8 @@ GET /todos/favorites
     "title": "Task 2",
     "description": "Description 2",
     "isFavorite": true,
-    "backgroundColor": "black",
-    "textColor": "white"
+    "backgroundColor": "white",
+    "textColor": "black"
   }
   // ... other favorite todos
 ]
@@ -290,7 +295,7 @@ GET /todos/color/:color
     "description": "Description 1",
     "isFavorite": false,
     "backgroundColor": "black",
-    "textColor": "red"
+    "textColor": "khaki"
   },
   {
     "_id": "unique_todo_id_3",
@@ -298,7 +303,7 @@ GET /todos/color/:color
     "description": "Description 3",
     "isFavorite": false,
     "backgroundColor": "black",
-    "textColor": "blue"
+    "textColor": "gray"
   }
   // ... other todos with the specified color
 ]
@@ -374,6 +379,6 @@ When the user try to provide an invalid color to update
 
 ## Additional Notes
 
-- Colors can be specified as strings (valid colors: "red", "blue", "green", "yellow", "white", "black").
+- Colors can be specified as strings (valid colors: "black", "palegoldenrod", "lightpink", "peachpuff", "white", "lavender", "gray", "lightskyblue", "khaki", "gainsboro").
 - To filter by favorites, use the `/todos/favorites` endpoint.
 - To filter by backgroundColor, use the `/todos/color/:color` endpoint.
