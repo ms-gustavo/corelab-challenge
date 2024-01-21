@@ -37,6 +37,19 @@ describe("Todo API Tests", () => {
     createdTodoId = res.body._id;
   });
 
+  it("should mark a todo as favorite", async () => {
+    const res = await request.put(`/api/todos/${createdTodoId}/favorite`);
+    expect(res.status).toBe(200);
+    expect(res.body).toBeInstanceOf(Object);
+    expect(res.body.isFavorite).toBe(true);
+  });
+
+  it("should get all favorite todos", async () => {
+    const res = await request.get("/api/todos/favorites");
+    expect(res.status).toBe(200);
+    expect(res.body).toBeInstanceOf(Array);
+  });
+
   it("should handle validation error if required fields are missing", async () => {
     const res = await request.post("/api/todos").send({});
 
@@ -139,29 +152,16 @@ describe("Todo API Tests", () => {
     }
   });
 
-  it("should mark a todo as favorite", async () => {
-    const res = await request.put(`/api/todos/${createdTodoId}/favorite`);
-    expect(res.status).toBe(200);
-    expect(res.body).toBeInstanceOf(Object);
-    expect(res.body.isFavorite).toBe(true);
-  });
-
-  it("should get all favorite todos", async () => {
-    const res = await request.get("/api/todos/favorites");
-    expect(res.status).toBe(200);
-    expect(res.body).toBeInstanceOf(Array);
-  });
-
   it("should set color for a todo", async () => {
     const res = await request.put(`/api/todos/${createdTodoId}/color`).send({
-      backgroundColor: "green",
-      textColor: "white",
+      backgroundColor: "white",
+      textColor: "black",
     });
 
     expect(res.status).toBe(200);
     expect(res.body).toBeInstanceOf(Object);
-    expect(res.body.backgroundColor).toBe("green");
-    expect(res.body.textColor).toBe("white");
+    expect(res.body.backgroundColor).toBe("white");
+    expect(res.body.textColor).toBe("black");
   });
 
   it("should handle invalid color error", async () => {
