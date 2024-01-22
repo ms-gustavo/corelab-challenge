@@ -37,10 +37,21 @@ git@github.com:ms-gustavo/corelab-challenge.git
 2. Navigate to the project directory
 
 ```bash
-cd corelab-challenge
+cd frontend
+```
+### For Local Run:
+
+```bash
+  npm install
 ```
 
-3. Run docker command
+and then
+
+```bash
+  npm start
+```
+
+## For docker run
 
 ```bash
 docker-compose up
@@ -60,6 +71,14 @@ sudo docker-compose up
 ## Running the tests
 
 To run the tests, run the following command
+
+If Local run
+
+```
+npm test
+```
+
+If Docker run
 
 ```bash
 docker exec -it frontend-appfrontend-1 bash
