@@ -1,1 +1,0 @@
-# corelab-challenge

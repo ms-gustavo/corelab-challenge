@@ -1,0 +1,24 @@
+@import "base/typography";
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f0f2f5;
+  color: black;
+}
+
+.create-note-container {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.note-container {
+  margin-top: 2em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
