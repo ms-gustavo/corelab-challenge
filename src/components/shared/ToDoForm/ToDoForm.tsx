@@ -13,6 +13,7 @@ import ColorPickerTrigger from "../../ColorPickerTrigger/ColorPickerTrigger";
 import FormFields from "../../FormFields/FormFields";
 import SubmitButton from "../../SubmitButton/SubmitButton";
 import removeButton from "../../../assets/removeButton.svg";
+import { toastError } from "../../../utils/Toasts";
 
 const ToDoForm: React.FC<ToDoFormProps> = ({
   mode,
@@ -45,8 +46,13 @@ const ToDoForm: React.FC<ToDoFormProps> = ({
         } else if (mode === "update" && todoId) {
           await updateTodo(todoId, values);
         }
-      } catch (error) {
+      } catch (error: unknown) {
         console.error("Error submiting form:", error);
+        if (error instanceof Error && "code" in error) {
+          if (error.code === "ERR_NETWORK") {
+            toastError("Erro de conexão, cheque sua conectividade");
+          }
+        }
       }
       setSubmitting(false);
     },

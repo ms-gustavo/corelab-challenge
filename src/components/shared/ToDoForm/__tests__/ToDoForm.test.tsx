@@ -140,9 +140,9 @@ describe("<ToDoForm />", () => {
     await act(async () => {
       fireEvent.click(changeTextColorImg);
     });
-    const redColorOption = document.querySelector(".color-option.red");
+    const blackColorOption = document.querySelector(".color-option.black");
     await act(async () => {
-      fireEvent.click(redColorOption);
+      fireEvent.click(blackColorOption);
     });
     const changeBackgroundColorImg = screen.getByAltText(
       "Change background color"
@@ -155,7 +155,11 @@ describe("<ToDoForm />", () => {
       fireEvent.click(whiteColorOption);
     });
     await waitFor(() =>
-      expect(todoApi.changeNoteColor).toHaveBeenCalledWith("1", "white", "red")
+      expect(todoApi.changeNoteColor).toHaveBeenCalledWith(
+        "1",
+        "white",
+        "black"
+      )
     );
   });
 });

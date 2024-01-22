@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getAllTodos } from "../api/todoApi";
 import { Todo } from "../types/todo";
+import { toastError } from "../utils/Toasts";
 
 const useTodoManager = (debouncedSearchTerm: string) => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -21,8 +22,13 @@ const useTodoManager = (debouncedSearchTerm: string) => {
         setFavoriteTodos(filteredTodos.filter((todo) => todo.isFavorite));
         setNonFavoriteTodos(filteredTodos.filter((todo) => !todo.isFavorite));
       }
-    } catch (error) {
-      console.error(`Error fetching ToDos: ${error}`);
+    } catch (error: unknown) {
+      if (error instanceof Error && "code" in error) {
+        console.error(`Error fetching ToDos: ${error.message}`);
+        if (error.code === "ERR_NETWORK") {
+          toastError("Erro de conexão, cheque sua conectividade");
+        }
+      }
       setTodos([]);
       setFavoriteTodos([]);
       setNonFavoriteTodos([]);
