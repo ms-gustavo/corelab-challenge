@@ -43,7 +43,7 @@ git checkout backend
 - Copy the content of `.envexample` into a new file named `.env`
 - Update the values in the `.env` file as needed.
 
-## MongoDB Atlas Connection String
+### MongoDB Atlas Connection String
 
 Connect to your MongoDB Atlas cluster using the following connection string:
 
@@ -70,6 +70,7 @@ mongodb+srv://myuser:mypassword@cluster0.mongodb.net/mydatabase
 ```bash
 docker-compose up
 ```
+
 6. This To-Do List API should be running locally at `http://localhost:3012/api`
 
 ## Running the tests
@@ -77,7 +78,7 @@ docker-compose up
 To run the tests, run the following command
 
 ```bash
-docker exec -it corelab-challenge-app-1 bash
+docker exec -it backend-backendapp-1 bash
 ```
 
 and then run the following command

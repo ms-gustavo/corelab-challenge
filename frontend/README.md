@@ -57,7 +57,7 @@ docker-compose up
 To run the tests, run the following command
 
 ```bash
-docker exec -it corelab-challenge-appfrontend-1 bash
+docker exec -it frontend-appfrontend-1 bash
 ```
 
 and then run the following command
