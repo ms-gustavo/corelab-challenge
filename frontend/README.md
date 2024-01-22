@@ -72,13 +72,13 @@ sudo docker-compose up
 
 To run the tests, run the following command
 
-If Local run
+### If Local run
 
 ```
 npm test
 ```
 
-If Docker run
+### If Docker run
 
 ```bash
 docker exec -it frontend-appfrontend-1 bash
