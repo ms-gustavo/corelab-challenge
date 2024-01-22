@@ -40,16 +40,21 @@ git@github.com:ms-gustavo/corelab-challenge.git
 cd corelab-challenge
 ```
 
-3. Switch to frontend branch
-
-```bash
-git checkout frontend
-```
-
-4. Run docker command
+3. Run docker command
 
 ```bash
 docker-compose up
+```
+If the terminal returns the error
+
+```bash
+permission denied while trying to connect to the Docker daemon socket
+```
+
+Run the command again with sudo
+
+```bash
+sudo docker-compose up
 ```
 
 ## Running the tests
@@ -58,6 +63,18 @@ To run the tests, run the following command
 
 ```bash
 docker exec -it frontend-appfrontend-1 bash
+```
+
+If the terminal returns the error
+
+```bash
+permission denied while trying to connect to the Docker daemon socket
+```
+
+Run the command again with sudo
+
+```bash
+sudo docker exec -it frontend-appfrontend-1 bash
 ```
 
 and then run the following command
