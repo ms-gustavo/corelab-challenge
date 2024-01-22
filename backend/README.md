@@ -32,13 +32,7 @@ git@github.com:ms-gustavo/corelab-challenge.git
 cd corelab-challenge
 ```
 
-4. Switch to backend branch
-
-```bash
-git checkout backend
-```
-
-4. Create an `.env` file:
+3. Create an `.env` file:
 
 - Copy the content of `.envexample` into a new file named `.env`
 - Update the values in the `.env` file as needed.
@@ -65,13 +59,25 @@ Replace the following placeholders:
 mongodb+srv://myuser:mypassword@cluster0.mongodb.net/mydatabase
 ```
 
-5. Run docker command
+4. Run docker command
 
 ```bash
 docker-compose up
 ```
 
-6. This To-Do List API should be running locally at `http://localhost:3012/api`
+If the terminal returns the error
+
+```bash
+permission denied while trying to connect to the Docker daemon socket
+```
+
+Run the command again with sudo
+
+```bash
+sudo docker-compose up
+```
+
+5. This To-Do List API should be running locally at `http://localhost:3012/api`
 
 ## Running the tests
 
@@ -79,6 +85,18 @@ To run the tests, run the following command
 
 ```bash
 docker exec -it backend-backendapp-1 bash
+```
+
+If the terminal returns the error
+
+```bash
+permission denied while trying to connect to the Docker daemon socket
+```
+
+Run the command again with sudo
+
+```bash
+sudo docker exec -it backend-backendapp-1 bash
 ```
 
 and then run the following command
