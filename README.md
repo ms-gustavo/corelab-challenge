@@ -1,5 +1,7 @@
 # To-Do List for CoreLab Challenge Front End Documentation
 
+![Captura de tela de 2024-01-22 14-39-20](https://github.com/ms-gustavo/corelab-challenge/assets/109868838/7bd283f8-28ef-4aaa-b5cf-8b02daf43972)
+
 Front-End for the challenge proposed by Corelab as a requirement for a Junior Developer position
 
 ## Author
@@ -65,3 +67,9 @@ and then run the following command
 ```bash
 npm test
 ```
+
+## New features to add
+
+### Drag and upload files
+
+**Description**: Enhance the user experience by allowing users to drag and drop files directly into the application interface. This intuitive method simplifies the process of uploading files, making it faster and more user-friendly.
