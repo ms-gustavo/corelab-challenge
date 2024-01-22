@@ -41,7 +41,9 @@ export interface TodoListContainerProps {
 
 export interface SearchBarProps {
   searchTerm: string;
-  handleSearchTermChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSearchTermChange: (
+    event: React.ChangeEvent<HTMLInputElement> | string
+  ) => void;
 }
 
 export interface ColorPickerTriggerProps {

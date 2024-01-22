@@ -1,19 +1,19 @@
 .color-picker-popup {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 5px;
   padding: 5px;
   background-color: #f99494;
   border-radius: 10px;
-  width: 40dvw;
+  width: 150px;
   max-width: 300px;
 }
 
 .color-option {
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   cursor: pointer;
 }

@@ -16,11 +16,21 @@ const NoteApp: React.FC = () => {
     updateTodoInList,
   } = useTodoManager(debouncedSearchTerm);
 
+  const handleSearchTermChange = (
+    e: string | React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (typeof e === "string") {
+      setSearchTerm(e);
+    } else {
+      setSearchTerm(e.target.value);
+    }
+  };
+
   return (
     <div className="note-app">
       <SearchBar
         searchTerm={searchTerm}
-        handleSearchTermChange={(e) => setSearchTerm(e.target.value)}
+        handleSearchTermChange={handleSearchTermChange}
       />
       <div className="create-note-container">
         <ToDoForm
