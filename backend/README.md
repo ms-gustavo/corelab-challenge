@@ -29,7 +29,7 @@ git@github.com:ms-gustavo/corelab-challenge.git
 2. Navigate to the project directory
 
 ```bash
-cd corelab-challenge
+cd backend
 ```
 
 3. Create an `.env` file:
@@ -59,7 +59,21 @@ Replace the following placeholders:
 mongodb+srv://myuser:mypassword@cluster0.mongodb.net/mydatabase
 ```
 
-4. Run docker command
+### For Local Run
+
+Run the command
+
+```bash
+npm install
+```
+
+and then
+
+```bash
+npm start
+```
+
+### For docker run
 
 ```bash
 docker-compose up
@@ -82,6 +96,14 @@ sudo docker-compose up
 ## Running the tests
 
 To run the tests, run the following command
+
+### If Local Run
+
+```bash
+npm test
+```
+
+### If docker run
 
 ```bash
 docker exec -it backend-backendapp-1 bash
