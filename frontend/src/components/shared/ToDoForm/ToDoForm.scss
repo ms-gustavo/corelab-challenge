@@ -1,0 +1,113 @@
+.update-margin {
+  margin: 1em;
+}
+.note-creation {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 25px;
+  box-shadow: 0 0 4px;
+  width: 80dvw;
+  max-width: 500px;
+
+  input {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+  }
+  .line {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .error-message {
+    padding: 0.5rem;
+    color: red;
+    font-style: italic;
+    margin-top: 4px;
+    font-size: 0.85em;
+  }
+
+  .textarea {
+    min-height: 100px;
+    min-width: 100%;
+    resize: none;
+    overflow: hidden;
+    border: none;
+  }
+  .input-description:focus {
+    outline: none;
+    border: none;
+  }
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    input[type="text"] {
+      flex-grow: 1;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border: none;
+    }
+    input[type="checkbox"] {
+      margin-left: 0.5rem;
+    }
+
+    label {
+      margin-left: 0.25rem;
+    }
+  }
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  button {
+    margin-top: 0.3rem;
+    padding: 0.4rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    width: 30%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .color-picker-container {
+    margin-top: 0.5em;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .picker-group {
+    display: flex;
+    gap: 15px;
+    position: relative;
+  }
+
+  .color-picker-trigger {
+    cursor: pointer;
+  }
+  .color-picker-container > .picker-group > div {
+    position: relative;
+  }
+
+  .delete-icon {
+    cursor: pointer;
+  }
+
+  .color-picker-popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+  }
+}
